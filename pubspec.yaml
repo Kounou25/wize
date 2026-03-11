@@ -9,7 +9,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  nfc_manager: ^4.1.1
+  flutter_nfc_kit: ^3.6.2
+  ndef: ^0.4.0 
+
+  
 
 dev_dependencies:
   flutter_test:
