@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_nfc_kit/flutter_nfc_kit.dart';
 import 'package:ndef/ndef.dart' as ndef;
+import 'package:flutter/services.dart'; // <- nécessaire pour FilteringTextInputFormatter
 
 // void main() => runApp(const MyApp());
 
@@ -189,10 +190,14 @@ class _NfcWriteScreenState extends State<NfcWriteScreen> {
     return TextField(
       controller: _textController,
       enabled: _status != NfcStatus.scanning,
-      maxLines: 3,
+      maxLines: 1, // souvent les champs numériques sont sur une seule ligne
+      keyboardType: TextInputType.number, // affiche le clavier numérique
+      inputFormatters: [
+        FilteringTextInputFormatter.digitsOnly, // n'accepte que les chiffres
+      ],
       decoration: InputDecoration(
-        labelText: 'Texte à écrire',
-        hintText: 'Ex: https://example.com ou un texte libre',
+        labelText: 'ID numérique à écrire',
+        hintText: 'Ex: 123456',
         border: const OutlineInputBorder(),
         suffixIcon: IconButton(
           icon: const Icon(Icons.clear),
