@@ -23,14 +23,14 @@ enum NfcStatus { idle, scanning, success, error }
 // ── Écran principal de lecture NFC ────────────────────────────────────────────
 // ═══════════════════════════════════════════════════════════════════════════════
 
-class NfcReadScreen extends StatefulWidget {
-  const NfcReadScreen({super.key});
+class NfcLunggageCollector extends StatefulWidget {
+  const NfcLunggageCollector({super.key});
 
   @override
-  State<NfcReadScreen> createState() => _NfcReadScreenState();
+  State<NfcLunggageCollector> createState() => _NfcLunggageCollectorState();
 }
 
-class _NfcReadScreenState extends State<NfcReadScreen> {
+class _NfcLunggageCollectorState extends State<NfcLunggageCollector> {
   NfcStatus _status = NfcStatus.idle;
   String _statusMessage =
       'Appuyez sur le bouton puis approchez votre carte NFC';
@@ -114,7 +114,7 @@ class _NfcReadScreenState extends State<NfcReadScreen> {
               );
             }
           });
-          await _player.play(AssetSource('assets/tons/beep.mp3'));
+          await _player.play(AssetSource('tons/beep.mp3'));
         } else {
           _setStatus(NfcStatus.error, 'Aucun voyage trouvé pour ce numéro');
         }

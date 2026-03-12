@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../interactions/models/voyage.dart';
-
+import '../interactions/models/bagage.dart';
+import '../interactions/services/BagageService.dart';
 // ═══════════════════════════════════════════════════════════════════════════════
 // ── Popup sélection bagages ────────────────────────────────────────────────────
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -37,17 +38,50 @@ class _BaggageDialogState extends State<BaggageDialog> {
 
   int get _total => _cabine + _soute + _special;
 
-  void _validate() {
-    // TODO: envoyer les données au service
+  void _validate() async {
+    List<Bagage> bagages = [];
+
+    if (_cabine > 0) {
+      bagages.add(
+        Bagage(
+          voyageId: widget.voyage.idVoyage,
+          type: "cabine",
+          nombre: _cabine,
+        ),
+      );
+    }
+
+    if (_soute > 0) {
+      bagages.add(
+        Bagage(voyageId: widget.voyage.idVoyage, type: "soute", nombre: _soute),
+      );
+    }
+
+    if (_special > 0) {
+      bagages.add(
+        Bagage(
+          voyageId: widget.voyage.idVoyage,
+          type: "special",
+          nombre: _special,
+        ),
+      );
+    }
+
+    if (bagages.isEmpty) return;
+
+    bool success = await BagageService.createBagages(bagages);
+
     Navigator.of(context).pop();
+
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          'Bagages enregistrés : $_cabine cabine · $_soute soute · $_special spécial',
+          success
+              ? "Bagages enregistrés avec succès"
+              : "Erreur lors de l'enregistrement des bagages",
         ),
-        backgroundColor: const Color(0xFF16A34A),
+        backgroundColor: success ? const Color(0xFF16A34A) : Colors.red,
         behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
     );
   }
