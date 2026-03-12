@@ -3,6 +3,7 @@ import 'package:flutter_nfc_kit/flutter_nfc_kit.dart';
 import 'package:ndef/ndef.dart' as ndef;
 import '../interactions/models/voyage.dart';
 import '../interactions/services/voyageService.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 enum NfcStatus { idle, scanning, success, error }
 
@@ -24,6 +25,12 @@ class _NfcReadScreenState extends State<NfcReadScreen> {
   void initState() {
     super.initState();
     _checkNfcAvailability();
+  }
+
+  final player = AudioPlayer();
+
+  void playSound() async {
+    await player.play(AssetSource('assets/tons/beep.mp3'));
   }
 
   Future<void> _checkNfcAvailability() async {
@@ -100,6 +107,8 @@ class _NfcReadScreenState extends State<NfcReadScreen> {
               );
             }
           });
+
+          playSound();
         } else {
           _setStatus(NfcStatus.error, 'Aucun voyage trouvé pour ce numéro');
         }
