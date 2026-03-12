@@ -34,4 +34,27 @@ class VoyageService {
       return [];
     }
   }
+
+  // changement du status de voyage lors de l'embarquement
+  static Future<bool> changeVoyageStatusDeparture(int voyageId) async {
+    final String baseUrl = "http://168.231.83.47:7000/voyages/$voyageId";
+
+    try {
+      final response = await http.put(
+        Uri.parse(baseUrl),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode({"status": "departure"}),
+      );
+
+      if (response.statusCode == 200) {
+        return true;
+      }
+
+      print("Erreur API voyage : ${response.body}");
+      return false;
+    } catch (e) {
+      print("Erreur HTTP voyage : $e");
+      return false;
+    }
+  }
 }
