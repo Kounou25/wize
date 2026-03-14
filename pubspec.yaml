@@ -12,7 +12,8 @@ dependencies:
     sdk: flutter
   flutter_nfc_kit: ^3.6.2
   http: ^1.6.0
-  ndef: ^0.4.0 
+  ndef: ^0.4.0
+  flutter_secure_storage: ^9.0.0 
 
   
 

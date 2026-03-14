@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wize_writter/pages/Wize_reader.dart';
 import 'package:wize_writter/pages/Wize_writter.dart';
 import 'package:wize_writter/pages/Wize_luggage_handler.dart';
+import 'package:wize_writter/pages/login.dart';
 
 void main() => runApp(const MyApp());
 
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(colorSchemeSeed: Colors.indigo, useMaterial3: true),
-      home: const NfcLunggageCollector(),
+      home: const LoginScreen(),
     );
   }
 }
